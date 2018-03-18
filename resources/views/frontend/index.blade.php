@@ -2,6 +2,7 @@
 @section('content')
 {{-- Carousel --}}
 @include('frontend.carousel')
+
 {{-- News --}}
 @include('frontend.news')
 <div class="container">

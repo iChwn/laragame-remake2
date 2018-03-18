@@ -17,7 +17,7 @@
             </div>
           </div>
 
-          <a class="btn btn-default btn-icon m-l-10 float-right hidden-xs-down" href="#" data-toggle="tooltip" title="list" data-placement="bottom" role="button"><i class="fa fa-bars"></i></a>
+         {{--  <a class="btn btn-default btn-icon m-l-10 float-right hidden-xs-down" href="#" data-toggle="tooltip" title="list" data-placement="bottom" role="button"><i class="fa fa-bars"></i></a>
           <div class="dropdown float-right">
             <button class="btn btn-default" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Date Added <i class="fa fa-caret-down"></i></button>
             <div class="dropdown-menu dropdown-menu-right">
@@ -26,7 +26,7 @@
               <a class="dropdown-item" href="#">Newest</a>
               <a class="dropdown-item" href="#">Oldest</a>
             </div>
-          </div>
+          </div> --}}
         </div>
 
         <!-- post -->
@@ -236,6 +236,6 @@
       </div>
     </div>
   </div>
-  </section
+  </section>
 
   @endsection

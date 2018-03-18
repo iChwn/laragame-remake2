@@ -13,14 +13,22 @@
 </section>
 
 <section class="bg-image" style="background-image: url('{{asset('/img/youtube/'.$vidio->cover)}}');">
-	<div class="overlay-light"></div>
+	<div class="overlay"></div>
 	<div class="container">
-		<div class="embed-responsive embed-responsive-16by9">
-			<iframe class="embed-responsive-item" src="{{$vidio->link}}" allowfullscreen></iframe>
+		<div class="video-play" data-src="https://www.youtube.com/embed/zFUymXnQ5z8?rel=0&amp;amp;autoplay=1&amp;amp;showinfo=0">
+			<div class="embed-responsive embed-responsive-16by9">
+				<img class="embed-responsive-item" src="../../img.youtube.com/vi/BhTkoDVgF6s/maxresdefault.jpg">
+				<div class="video-caption">
+					{{-- <h5>For Honor: Walkthrough Gameplay Warlords</h5> --}}
+					<span class="length">5:32</span>
+				</div>
+				<iframe width="420" height="315"
+				src="https://www.youtube.com/embed/{{($vidio->link_id)}}">
+			</iframe>
 		</div>
 	</div>
+</div>
 </section>
-
 <section>
 	<div class="container">
 		<div class="row">
@@ -33,8 +41,8 @@
 						<div>
 							<h2 class="post-title">{{($vidio->judul)}}</h2>
 							<div class="post-meta">
-								<span><i class="fa fa-clock-o"></i> {{ date('d F, Y', strtotime($vidio->created_at)) }} by <a href="profile.html">Clark</a></span>
-								<span><a href="#comments"><i class="fa fa-comment-o"></i> 33 comments</a></span>
+								<span><i class="fa fa-clock-o"></i> {{ date('d F, Y', strtotime($vidio->created_at)) }} by <a href="profile.html">{{($vidio->berita->authors)}}</a></span>
+								<span><a href="#comments"><i class="fa fa-eye"></i> {{($vidio->berita->views)}} Views</a></span>
 							</div>
 						</div>
 					</div>
@@ -44,18 +52,26 @@
 				</div>
 
 				<div class="post-actions">
+					Tag : <br>
 					<div class="post-tags">
-						<a href="#">#star wars</a>
-						<a href="#">#battlefront 2</a>
-						<a href="#">#gameplay</a>
-						<a href="#">#trailer</a>
-						<a href="#">#galaxy</a>
+						@foreach($vidio->berita->tags as $tag)
+						<a href="{{route('showpertag', $tag->name)}}"><span id=""></span>#{{ $tag->name }}</a>
+						@endforeach
 					</div>
 					<div class="social-share">
-						<a class="btn btn-social btn-facebook btn-circle" href="#" data-toggle="tooltip" title="" data-placement="bottom" role="button" data-original-title="Share on facebook"><i class="fa fa-facebook"></i></a>
-						<span>5.345k</span>
-						<a class="btn btn-social btn-twitter btn-circle" href="#" data-toggle="tooltip" title="" data-placement="bottom" role="button" data-original-title="Share on twitter"><i class="fa fa-twitter"></i></a>
-						<a class="btn btn-social btn-google-plus btn-circle" href="#" data-toggle="tooltip" title="" data-placement="bottom" role="button" data-original-title="Share on google-plus"><i class="fa fa-google-plus"></i></a>
+						<!-- widget share -->
+						<div class="widget widget-share" data-fixed="widget">
+							<!-- AddToAny BEGIN -->
+							<div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+								<a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+								<a class="a2a_button_twitter"></a>
+								<a class="a2a_button_google_gmail"></a>
+								<a class="a2a_button_whatsapp"></a>
+								<a class="a2a_button_facebook"></a>
+							</div>
+							<script async src="https://static.addtoany.com/menu/page.js"></script>
+							<!-- AddToAny END -->
+						</div>
 					</div>
 				</div>
 				<div id="comments" class="comments anchor">
@@ -102,7 +118,7 @@ this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your pag
 					</div>
 					<h4><a href="{{route('vidios',$data->judul)}}">{{($data->judul)}}</a></h4>
 					<span><i class="fa fa-clock-o"></i> {{ date('d F, Y', strtotime($data->created_at)) }}</span>
-					<span><i class="fa fa-eye"></i> 345x</span>
+					<span><i class="fa fa-eye"></i> {{($vidio->berita->views)}}x</span>
 				</li>
 				@endforeach
 			</ul>

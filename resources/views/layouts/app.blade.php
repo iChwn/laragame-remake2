@@ -4,15 +4,11 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
-
   <title>{{ config('app.name', 'Laravel') }}</title>
-
   <!-- Styles -->
   {{-- <link href="/css/app.css" rel="stylesheet"> --}}
-
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
   <link rel="stylesheet" href="{{asset('/template/plugins/font-awesome/css/font-awesome.min.css')}}">
   <link rel="stylesheet" href="{{asset('/template/plugins/bootstrap/css/bootstrap.min.css')}}">
@@ -22,7 +18,6 @@
   <!-- theme css -->
   <link rel="stylesheet" href="{{asset('/template/css/theme.min.css')}}">
   <link rel="stylesheet" href="{{asset('/template/css/custom.css')}}">
-
   {{-- Sweetalert --}}
   <link rel="stylesheet" href="{{asset('/dist/sweetalert.css')}}">
   {{-- Vaf icon --}}
@@ -49,20 +44,23 @@
                   <li class="has-dropdown">
                   <a href="#">Categori</a>
                     <ul>
+                      @if(isset($categori))
                       @foreach($categori as $data)       
                       <li><a href="{{route('showperkategori', $data->id)}}">{!! $data->categori !!}</a></li>
                       @endforeach
+                      @endif
                     </ul>
                   </li>
                   <li><a href="{{url('/portfolio')}}" class="page-scroll">Galeri</a></li>
                   <li><a href="{{url('/blog')}}" class="page-scroll">Blog</a></li>
-                  <li><a href="{{url('/contact')}}" class="page-scroll">Contact ME Senpai!</a></li>
+                  <li><a href="{{url('/contact')}}" class="page-scroll">Contact ME!</a></li>
                   <li class="has-dropdown mega-menu mega-games">
                     <a href="games.html">Latest News</a>
                     <ul>
                       <li>
                         <div class="container">
                           <div class="row">
+                            @if(isset($berita2))
                             @foreach($berita2 as $data)
                             <div class="col">
                               <div class="img">
@@ -73,6 +71,7 @@
                               <span>{{ date('d F, Y', strtotime($data->created_at)) }}</span>
                             </div>
                             @endforeach
+                            @endif
                           </div>
                         </div>
                       </li>

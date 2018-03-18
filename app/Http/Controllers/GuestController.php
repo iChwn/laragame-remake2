@@ -11,6 +11,10 @@ use App\Vidios;
 use Laratrust\LaratrustFacade as Laratrust;
 use Illuminate\Support\Str;
 use DB;
+use Intervention\Image\ImageManager;
+use Image;
+use Alaouy\Youtube\Facades\Youtube;
+ require '../../../vendor/autoload.php';
 
 class GuestController extends Controller
 {
@@ -21,16 +25,18 @@ class GuestController extends Controller
      */
     public function index()
     {   
-         $berita0 = Berita::orderBy('created_at','desc')->take(1)->get();
+         $berita0 = Berita::orderBy('created_at','desc')->take(2)->get();
          $berita1 = Berita::orderBy('created_at','desc')->take(3)->get();
          $berita2 = Berita::orderBy('created_at','asc')->take(4)->get();
          $beritas = Berita::orderBy('created_at','desc')->paginate(5);
-        $populer =  Berita::orderBy('views','desc')->take(5)->get();
+         $berita3 = Berita::orderBy('created_at','asc')->take(4)->get();
+         $populer =  Berita::orderBy('views','desc')->take(5)->get();
          $berita  = Berita::all();
          $vidios  = Vidios::orderBy('created_at','desc')->take(6)->get();
          $categori= Categori::all();
+ 
          
-         return view('frontend.index')->with(compact('beritas','categori','berita1','berita2','berita','vidios','berita0','populer'));
+         return view('frontend.index')->with(compact('beritas','categori','berita1','berita2','berita','vidios','berita0','populer','berita3','img'));
     }
 
     /**
@@ -152,6 +158,7 @@ class GuestController extends Controller
         return view('frontend.portfolio')->with(compact('categori','berita','berita2'));
     }
 
+//Show Per Kategori
     public function showperkategori($id)
     {
         $berita0 = Berita::orderBy('created_at','desc')->take(1)->get();
@@ -164,6 +171,31 @@ class GuestController extends Controller
         
         return view('frontend.categori',compact('beritas','categori','berita','filtercategori','berita2','populer','berita0'));
     }
+    public function showpertag($name)
+    {
+         $berita0 = Berita::orderBy('created_at','desc')->take(1)->get();
+         $berita2 = Berita::orderBy('created_at','asc')->take(4)->get();
+         $filtercategori = Berita::where('judul','like',"%$name%")->paginate(5);
+         $berita = Berita::orderBy('created_at','desc')->take(3)->get();
+         $beritas = Berita::orderBy('created_at','desc')->paginate(5);
+         $populer =  Berita::orderBy('views','desc')->take(5)->get();
+         $categori = Categori::all();
+        
+        return view('frontend.showpertag',compact('beritas','categori','berita','filtercategori','berita2','populer','berita0'));
+    }
+    public function showpergaleri($id)
+    {
+        $berita0 = Berita::orderBy('created_at','desc')->take(1)->get();
+         $berita2 = Berita::orderBy('created_at','asc')->take(4)->get();
+         $filtercategori = Berita::where('categori_id','=',$id)->paginate(5);
+         $berita = Berita::orderBy('created_at','desc')->take(3)->get();
+         $beritas = Berita::orderBy('created_at','desc')->paginate(5);
+         $populer =  Berita::orderBy('views','desc')->take(5)->get();
+         $categori = Categori::all();
+        
+        return view('frontend.show-per-portfolio',compact('beritas','categori','berita','filtercategori','berita2','populer','berita0'));
+    }
+//End
 
     public function login()
     {
@@ -173,7 +205,7 @@ class GuestController extends Controller
     }
     public function errors()
     {
-         $berita2 = Berita::orderBy('created_at','asc')->take(5)->get();
+         $berita2 = Berita::orderBy('created_at','asc')->take(4)->get();
          $categori = Categori::all();
         return view('errors.404')->with(compact('categori','berita2'));
     }

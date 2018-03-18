@@ -26,7 +26,7 @@ class BeritasController extends Controller
             return Datatables::of($beritas)
             ->addColumn('cover', function($beritas){
                 if(isset($beritas->cover)){
-                    return '<img src="/latihan/public/img/'.$beritas->cover. '" height="100px" width="200px">';
+                    return '<img src="../../public/img/'.$beritas->cover. '" height="100px" width="200px">';
                 }else{
                     return "Tidak Ada Gambar";
                 }
@@ -59,6 +59,7 @@ class BeritasController extends Controller
         }
         $html = $htmlBuilder
         ->addColumn(['data'=>'cover','name'=>'cover','title'=>'Cover'])
+        ->addColumn(['data'=>'authors','name'=>'authors','title'=>'Authors'])
         ->addColumn(['data'=>'judul','name'=>'judul','title'=>'Judul'])
            // ->addColumn(['data'=>'deskripsi','name'=>'deskripsi','title'=>'Deskripsi'])
         ->addColumn(['data'=>'categori.categori','name'=>'categori.categori','title'=>'Categori'])
@@ -97,9 +98,10 @@ class BeritasController extends Controller
             'categori_id' =>'required',
             'deskripsi'   =>'required',
             'deskripsi2'  =>'',
-            'cover'       =>'max:10000',
-            'views'       =>'',
- ]);
+            'cover'       =>'required|image|max:2048',
+            'tags'        => 'required',
+ ]);        
+
         $tambah = new Berita();
         $tambah->judul = $request->get('judul');
         //Judul kita jadikan slug
@@ -108,13 +110,16 @@ class BeritasController extends Controller
         $tambah->categori_id = $request->get('categori_id');
         $tambah->deskripsi = $request->get('deskripsi');
         $tambah->deskripsi2 = $request->get('deskripsi2');
-        $tambah->views = $request->get('views');
+        $tambah->authors = $request->get('authors');
         // Disini proses mendapatkan judul dan memindahkan letak gambar ke folder image
         $file       = $request->file('cover');
         $fileName   = $file->getClientOriginalName('');
         $request->file('cover')->move("img/", $fileName);
         $tambah->cover = $fileName;
         $tambah->save();
+    
+        $tags = explode(",", $request->tags);
+        $tambah->tag($tags);
 
         alert()->success($tambah->judul, 'Berhasil Menyimpan')->persistent('Close');
         return redirect()->route('beritas.index');

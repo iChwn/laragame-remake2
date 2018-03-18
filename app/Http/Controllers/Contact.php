@@ -85,11 +85,12 @@ class Contact extends Controller
             $berita2 = Berita::orderBy('created_at','asc')->take(5)->get();
             $beritas = Berita::orderBy('created_at','desc')->paginate(5);
             $vidios  = Vidios::orderBy('created_at','desc')->take(6)->get();
+            $berita3 = Berita::orderBy('created_at','asc')->take(4)->get();
             $berita  = Berita::all();
              $populer =  Berita::orderBy('views','desc')->take(5)->get();
             $request->session()->flash('status', 'Terima kasih, kami sudah menerima email anda.');
             alert()->success('Pesan Berhasil Terkirim gan','Sipp :)')->persistent('Close');
-            return view('frontend.index')->with(compact('Categori','categori','berita0','berita2','berita1','vidios','beritas','berita','populer'));
+            return view('frontend.index')->with(compact('Categori','categori','berita0','berita2','berita1','vidios','beritas','berita','populer','berita3'));
 
         } catch (Exception $e) {
             echo 'Message could not be sent.';

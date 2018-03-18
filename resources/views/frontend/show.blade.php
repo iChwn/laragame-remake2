@@ -34,7 +34,7 @@
 				<div class="post post-single">
 					<h2 class="post-title">{{$berita->judul}}</h2>
 					<div class="post-meta">
-						<span><i class="fa fa-clock-o"></i> {{ date('d F, Y', strtotime($berita->created_at)) }} by <a href="profile.html">Constantine</a></span>
+						<span><i class="fa fa-clock-o"></i> {{ date('d F, Y', strtotime($berita->created_at)) }} by <a href="profile.html">{{$berita->authors}}</a></span>
 						<span><a href="#comments"><i class="fa fa-comment-o"></i> {{($berita->views)}} Views</a></span>
 					</div>
 					<div class="post-thumbnail">
@@ -50,6 +50,12 @@
 					@if($berita->count()<=0)
 					tidakada
 					@endif
+					<strong>Tag:</strong>
+					<div class="post-tags">
+					@foreach($berita->tags as $tag)
+					<a href="{{route('showpertag', $tag->name)}}"><span id=""></span>#{{ $tag->name }}</a>
+					@endforeach
+					</div>
 				</div>
 			</div>
 			{{-- Realeted Post --}}

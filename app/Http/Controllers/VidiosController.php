@@ -22,13 +22,20 @@ class VidiosController extends Controller
     {
         //
     if ($request->ajax()) {
-            $vidios = Vidios::with('berita','categori');
+            $vidios = Vidios::with('berita');
             return Datatables::of($vidios)
             ->addColumn('cover', function($vidios){
-                return '<img src="/latihan/public/img/youtube/'.$vidios->cover. '" height="100px" width="200px">';
+                return '<img src="/linux/latihanfix/public/img/youtube/'.$vidios->cover. '" height="100px" width="200px">';
             })
             ->addColumn('spoiler', function($vidios){
               return '<a href="'.route('vidios.show',$vidios->id).'">'.$vidios->judul.'</a>';
+            })
+            ->addColumn('hapus',function($vidios){
+                return view('datatable.delete_berita',[
+                    'model' =>$vidios,
+                    'form_url'=>route('vidios.destroy',$vidios->id), 
+                    'confirm_message' => 'Yakin mau menghapus ' . $vidios->judul . '?'
+                    ]);
             })
             ->addColumn('action', function($vidios){
             return view('datatable._action',[
@@ -49,7 +56,9 @@ class VidiosController extends Controller
             // ->addColumn(['data'=>'categori.categori','name'=>'categori.categori','title'=>'Categori'])
             ->addColumn(['data'=>'berita.judul','name'=>'berita.judul','title'=>'Berita'])
             ->addColumn(['data'=>'action', 'name'=>'action', 'title'=>'', 'orderable'=>false,
-                'searchable'=>false]);
+                'searchable'=>false])
+            ->addColumn(['data'=>'hapus', 'name'=>'hapus', 'title'=>'', 'orderable'=>false,
+            'searchable'=>false]);
         return view('backend/vidios.index')->with(compact('html','kategori'));
     }
 
@@ -71,11 +80,14 @@ class VidiosController extends Controller
      */
     public function store(Request $request)
     {
-         $tambah = new Vidios();
+        $this->validate($request,[
+            'cover'       =>'image|max:2048',
+ ]);        
+        $tambah = new Vidios();
         $tambah->judul = $request->get('judul');
         //Judul kita jadikan slug
         $tambah->berita_id = $request->get('berita_id');
-        $tambah->categori_id = $request->get('categori_id');
+       
         $tambah->link = $request->get('link');
         $tambah->link_id = $request->get('link_id');
         // Disini proses mendapatkan judul dan memindahkan letak gambar ke folder image
@@ -121,7 +133,44 @@ class VidiosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $vidio = Vidios::find($id);
+        if (!$vidio->update($request->all())) return redirect()->back();
+
+        //isi file cover jika ada cover yang di upload
+
+        if($request->hasFile('cover')) {
+            //mengambil cover yang di upload berikut extension
+            $filename=null;
+            $uploded_cover = $request->file('cover');
+            $extension = $uploded_cover->getClientOriginalExtension();
+            //membuat nama file random berikut extensi
+            $filename=md5(time()) .'.'. $extension;
+            $destinationPath = public_path() . DIRECTORY_SEPARATOR .'img/youtube';
+            
+            //menyimpan cover ke folder public/img
+            
+            $uploded_cover->move($destinationPath,$filename);
+
+            //hapus cover lama
+            if($vidio->cover) {
+                $old_cover=$vidio->cover;
+                $filepath = public_path() . DIRECTORY_SEPARATOR .'img/youtube/' 
+                . DIRECTORY_SEPARATOR .$vidio->cover;
+
+                try{
+                   File::delete($filepath);
+               }catch (FileNotFoundException $e){
+                    //file sudah dihapus/tidak ada
+               }
+           }
+            //ganti field cover dengan cover baru
+           $vidio->cover=$filename;
+           $vidio->save();
+
+       }
+
+       alert()->info($vidio->judul, 'Berhasil Mengedit')->persistent('Close');
+       return redirect()->route('vidios.index');
     }
 
     /**

@@ -30,6 +30,7 @@
 	<link rel="stylesheet" href="{{asset('/admin/css/application.min.css')}}">
 	<link href="{{asset('/css/jquery.dataTables.css')}}" rel="stylesheet">
 	<link href="{{asset('/css/dataTables.bootstrap.css')}}" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css" />
 	{{-- Sweetalert --}}
 	<link rel="stylesheet" href="{{asset('/dist/sweetalert.css')}}">
 </head>
@@ -177,7 +178,12 @@
 								@role('admin')
 								<li><a href="{{ route('categoris.index') }}">Categori</a></li>
 								<li><a href="{{ route('beritas.index') }}">Berita</a></li>
-								<li hidden=""><a href="{{ route('vidios.index') }}">Video</a></li>
+								<li><a href="{{ url('/settings/profile') }}">Profil</a></li>
+								<li><a href="{{ route('vidios.index') }}">Video</a></li>
+								@endrole
+								@role('super')
+								<li><a href="{{ route('pengurus.index') }}">Pengurus</a></li>
+								<li><a href="{{ route('beritaas.index') }}">Berita</a></li>
 								@endrole
 							</ul>
 						</li>
@@ -342,6 +348,8 @@
 
 			</div>
 		</div>
+		<script src="http://demo.itsolutionstuff.com/plugin/jquery.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.js"></script>
 		<script src="{{asset('/admin/js/vendor.min.js')}}"></script>
 		<script src="{{asset('/admin/js/elephant.min.js')}}"></script>
 		<script src="{{asset('/admin/js/application.min.js')}}"></script>

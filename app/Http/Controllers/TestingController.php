@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Alaouy\Youtube\Facades\Youtube;
+use App\Vidios;
 
 class TestingController extends Controller
 {
@@ -14,9 +15,10 @@ class TestingController extends Controller
      */
     public function index()
     {
-        $videoList = Youtube::getVideoInfo(['rie-hPVJ7Sw','iKHTawgyKWQ']);
-        dd($videoList);
-        return view('testing');
+        $vid = Vidios::all();
+        $videoList = Youtube::getVideoInfo(['rie-hPVJ7Sw','dxIG9JtakBM']); 
+         //dd($videoList);
+        return view('testing')->with(compact('vid'));
     }
 
     /**

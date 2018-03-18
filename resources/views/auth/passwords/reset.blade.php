@@ -31,8 +31,7 @@
                         </div>
                     </div>
                     <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                        {!! Form::label('password_confirmation', 'Konfirmasi Password', ['class'=>'col-md-4 contr\
-                        ol-label']) !!}
+                        {!! Form::label('password_confirmation', 'Konfirmasi Password', ['class'=>'col-md-4 control-label']) !!}
                         <div class="col-md-6">
                             {!! Form::password('password_confirmation', ['class'=>'form-control']) !!}
                             {!! $errors->first('password_confirmation', '<p class="help-block">:message</p>') !!}
@@ -51,4 +50,5 @@
         </div>
     </div>
 </div>
+@include('frontend.footer')
 @endsection

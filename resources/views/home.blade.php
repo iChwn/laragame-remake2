@@ -12,7 +12,7 @@
             <p class="title-bar-description">
               <small>Selamat Datang Di Menu Admin ;) <a href="widgets.html">widgets</a>.</small>
             </p>
-            <div class="row gutter-xs">
+          {{--   <div class="row gutter-xs">
           <div class="col-xs-6 col-md-3">
             <div class="card no-background no-border">
               <div class="card-values">
@@ -182,7 +182,7 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> --}}
           </div>
         </div>
 

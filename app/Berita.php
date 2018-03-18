@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Berita extends Model
 {
-    protected $fillable=['judul','judul_slug','spoiler','categori_id','deskripsi','deskripsi2','cover','views'];
+	use \Conner\Tagging\Taggable;
+    protected $fillable=['judul','judul_slug','spoiler','categori_id','deskripsi','deskripsi2','cover','views','authors'];
 
     public function categori()
     {

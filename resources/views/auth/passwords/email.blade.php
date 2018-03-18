@@ -2,37 +2,46 @@
 
 <!-- Main Content -->
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Reset Password</div>
-                <div class="panel-body">
-                    @if (session('status'))
-                    <div class="alert alert-success">
-                        {{ session('status') }}
-                    </div>
-                    @endif
+<section class="p-b-0">
+  <div class="container">
+    <div class="heading">
+      <i class="fa fa-envelope-open-o"></i>
+      <h2>Periksa E-mail Anda</h2>
+      <p>Pesan akan terkirim dalam waktu sekitar <u>5 Menit</u> oke ;)</p>
+  </div>
+</div>
+</section>
 
-                    {!! Form::open(['url'=>'/password/email', 'class'=>'form-horizontal'])!!}
-                    <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                        {!! Form::label('email', 'Alamat Email', ['class'=>'col-md-4 control-label']) !!}
-                        <div class="col-md-6">
-                            {!! Form::email('email', null, ['class'=>'form-control']) !!}
-                            {!! $errors->first('email', '<p class="help-block">:message</p>') !!}
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-6 col-md-offset-4">
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fa fa-btn fa-envelope"></i> Kirim link reset password
-                            </button>
-                        </div>
-                    </div>
-                    {!! Form::close() !!}
-                </div>
+<section class="p-t-10">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-7 mx-auto">
+        @if (session('status'))
+        <div class="alert alert-success">
+            {{ session('status') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        @endif
+        <div class="form-group">
+          <label for="email">Email</label>
+          {!! Form::open(['url'=>'/password/email', 'class'=>'form-horizontal'])!!}
+          <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+            <div class="col-md-14">
+                {!! Form::email('email', null, ['class'=>'form-control','placeholder'=>'Masukan email anda']) !!}
+                {!! $errors->first('email', '<p class="help-block">:message</p>') !!}
             </div>
         </div>
     </div>
+    <button type="submit" class="btn btn-primary btn-lg btn-rounded btn-effect btn-shadow float-right">
+        <i class="fa fa-btn fa-envelope"></i> Kirim link reset password
+    </button>
+    {!! Form::close() !!}
 </div>
+</div>
+</div>
+</section>
+@include('frontend.footer')
 @endsection
+

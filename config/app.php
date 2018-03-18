@@ -167,6 +167,8 @@ return [
         Laratrust\LaratrustServiceProvider::class,
         Yajra\Datatables\DatatablesServiceProvider::class,
         Alaouy\Youtube\YoutubeServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
+        Unisharp\Ckeditor\ServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -182,6 +184,7 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        \Conner\Tagging\Providers\TaggingServiceProvider::class,
 
     ],
 
@@ -234,6 +237,7 @@ return [
         'Alert' => UxWeb\SweetAlert\SweetAlert::class,
         'Laratrust' => Laratrust\LaratrustFacade::class,
         'Youtube' => Alaouy\Youtube\Facades\Youtube::class,
+        'Image' => Intervention\Image\Facades\Image::class,
             
     ],
 

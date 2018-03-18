@@ -22,13 +22,6 @@
 	</div>
 </div>
 
-<div class="form-group{{ $errors->has('categori_id') ? ' has-error' : '' }}">
-	{!! Form::label('categori_id', 'Categori', ['class'=>'col-md-2 control-label']) !!}
-	<div class="col-md-4">
-		{!! Form::select('categori_id',[''=>'']+App\Categori::pluck('categori','id')->all(), null,['class'=>'form-control'])  !!}
-		{!! $errors->first('categori_id', '<p class="help-block">:message</p>') !!}
-	</div>
-</div>
 
 <div class="form-group{{ $errors->has('berita_id') ? ' has-error' : '' }}">
 	{!! Form::label('berita_id', 'Berita', ['class'=>'col-md-2 control-label']) !!}

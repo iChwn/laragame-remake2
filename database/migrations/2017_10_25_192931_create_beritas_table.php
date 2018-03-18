@@ -22,7 +22,9 @@ class CreateBeritasTable extends Migration
             $table->text('deskripsi');
             $table->text('deskripsi2');
             $table->string('cover')->nullable();
-            $table->integer('views');
+            $table->integer('views')->default(0);
+            $table->string('authors');
+            $table->integer('status')->default(0);
             $table->timestamps();
 
             $table->foreign('categori_id')->references('id')->on('categoris')->onUpdate('cascade')->onDelete('cascade');

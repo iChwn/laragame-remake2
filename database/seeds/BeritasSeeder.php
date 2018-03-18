@@ -20,10 +20,11 @@ class BeritasSeeder extends Seeder
         $categori3 = Categori::create(['Categori'=>'RACING']);
 
         //sample berita
-        $berita1 = Berita::create(['judul'=>'Legend of Zenonia','judul_slug'=>'lalala lili','spoiler'=>'Kisah Petualangan','deskripsi'=>'Kisah Petualangan','deskripsi2'=>'Perang dunia ke 2','views'=>'0','categori_id'=>$categori1->id]);
-        $berita2 = Berita::create(['judul'=>'Battlefiled','judul_slug'=>'lalala lili','spoiler'=>'Perang dunia ke 1','deskripsi'=>'Perang dunia ke 1','deskripsi2'=>'Perang dunia ke 2','views'=>'0','categori_id'=>$categori2->id]);
-        $berita3 = Berita::create(['judul'=>'Asphalt Runner','judul_slug'=>'lalala lili','spoiler'=>'Game Balap Mobil','deskripsi'=>'Game Balapan Mobil Terbaru','deskripsi2'=>'Perang dunia ke 2','views'=>'0','categori_id'=>$categori3->id]);
-        $berita4 = Berita::create(['judul'=>'COD MWII','judul_slug'=>'lalala lili','spoiler'=>'Game Perang','deskripsi'=>'Perang dunia ke 2','deskripsi2'=>'Perang dunia ke 2','views'=>'0','categori_id'=>$categori3->id]);
+        $berita1 = Berita::create(['judul'=>'Legend of Zenonia','judul_slug'=>'lalala lili','spoiler'=>'Kisah Petualangan','deskripsi'=>'Kisah Petualangan','deskripsi2'=>'Perang dunia ke 2','views'=>'0','categori_id'=>$categori1->id,'authors'=>'Admin']);
+        
+        $berita2 = Berita::create(['judul'=>'Battlefiled','judul_slug'=>'lalala lili','spoiler'=>'Perang dunia ke 1','deskripsi'=>'Perang dunia ke 1','deskripsi2'=>'Perang dunia ke 2','views'=>'0','categori_id'=>$categori2->id,'authors'=>'Admin']);
+        $berita3 = Berita::create(['judul'=>'Asphalt Runner','judul_slug'=>'lalala lili','spoiler'=>'Game Balap Mobil','deskripsi'=>'Game Balapan Mobil Terbaru','deskripsi2'=>'Perang dunia ke 2','views'=>'0','categori_id'=>$categori3->id,'authors'=>'Admin']);
+        $berita4 = Berita::create(['judul'=>'COD MWII','judul_slug'=>'lalala lili','spoiler'=>'Game Perang','deskripsi'=>'Perang dunia ke 2','deskripsi2'=>'Perang dunia ke 2','views'=>'0','categori_id'=>$categori3->id,'authors'=>'Admin']);
 
         //Sempel Peminjaman Buku
   /* minjam      $member = User::where('email','member@gmail.com')->first();

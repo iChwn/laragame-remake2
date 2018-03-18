@@ -38,6 +38,7 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+        $this->middleware('user-should-verified');
     }
 
     /**
@@ -68,8 +69,38 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
             ]);
-        $memberRole = Role::where('name', 'member')->first();
+        $memberRole = Role::where('name', 'admin')->first();
         $user->attachRole($memberRole);
+        $user->sendVerification();
         return $user;
+    }
+
+    public function verify(Request $request, $token)
+    {
+        $email = $request->get('email');
+        $user = User::where('verification_token', $token)->where('email', $email)->first();
+        if ($user) {
+            $user->verify();
+            Session::flash("flash_notification", [
+            "level" => "success",
+            "message" => "Berhasil melakukan verifikasi."
+            ]);
+            alert()->warning('"Berhasil Vertivikasi')->persistent('Close');
+        Auth::login($user);
+                    }
+        return redirect('/');
+    }
+
+    public function sendVerification(Request $request)
+    {
+        $user = User::where('email',$request->get('email'))->first();
+        if ($user && !$user->is_verified) {
+           #dissable $user->sendVerification();
+            Session::flash("flash_notification",[
+                "level" => "success",
+                "message" => "Silahkan klik pada link aktivitasi yang telah kami kirim!."
+                ]);
+        }
+        return redirect('/admin-l');        
     }
 }

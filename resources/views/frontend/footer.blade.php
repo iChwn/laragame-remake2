@@ -2,22 +2,24 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-12 col-md-5">
-			<h4 class="footer-title">About Laragame\remake</h4>
+				<h4 class="footer-title">About Laragame\remake</h4>
 				<p>Laragame\remake adalah sebuah web yang dulunya bernama 'Laragame'
-				Namun kini di buat kembali dengan nama yang berbeda yaitu 'Laragame\remake'.</p>
-				<p>Web ini memberikan informasi berita seputar game yang terupdate setiap harinya
-				dan dengan tampilan yang di rombak memberikan kesan yang lebih memukau.</p>
-			</div>
-			<div class="col-sm-12 col-md-3">
-				<h4 class="footer-title">Platform</h4>
-				<div class="row">
-					<div class="col">
-						<ul>
-							@foreach($categori as $data)       
-							<li><a href="{{route('showperkategori', $data->id)}}">{!! $data->categori !!}</a></li>
-							@endforeach
-						</ul>
+					Namun kini di buat kembali dengan nama yang berbeda yaitu 'Laragame\remake'.</p>
+					<p>Web ini memberikan informasi berita seputar game yang terupdate setiap harinya
+						dan dengan tampilan yang di rombak memberikan kesan yang lebih memukau.</p>
 					</div>
+					<div class="col-sm-12 col-md-3">
+						<h4 class="footer-title">Platform</h4>
+						<div class="row">
+							<div class="col">
+								<ul>
+									@if(isset($categori))
+									@foreach($categori as $data)       
+									<li><a href="{{route('showperkategori', $data->id)}}">{!! $data->categori !!}</a></li>
+									@endforeach
+									@endif
+								</ul>
+							</div>
 					{{-- <div class="col">
 						<ul>
 							<li><a href="games.html">Games</a></li>
