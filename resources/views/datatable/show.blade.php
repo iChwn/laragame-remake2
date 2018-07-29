@@ -1,3 +1,7 @@
+@php
+use App\Vidios;
+$vidio = Vidios::where('berita_id',$model->id)->first();
+@endphp
 <button class="btn btn-outline-primary " data-toggle="modal" data-target="#modalFlipInY{{$model->id}}" type="button"> <i class="icon icon-eye"></i> Show</button>
 <div id="modalFlipInY{{$model->id}}" tabindex="-1" role="dialog" class="modal fade bs-example-modal-lg">
 	<div class="modal-dialog modal-lg">
@@ -22,6 +26,23 @@
 								<img src="{{asset('/img/'.$model->cover)}}" alt="Uncharted The Lost Legacy First Gameplay Details Revealed" style="width: 800px; height: 450px;">
 								<p style="height: 30px;"></p>
 							</div>
+							@if(isset($vidio))
+			
+				
+					
+					
+							<div class="embed-responsive embed-responsive-16by9">
+								<img class="embed-responsive-item" src="../../img.youtube.com/vi/BhTkoDVgF6s/maxresdefault.jpg">
+								<div class="video-caption">
+									{{-- <h5>For Honor: Walkthrough Gameplay Warlords</h5> --}}
+									<span class="length"></span>
+								</div>
+								<iframe width="420" height="315"
+								src="https://www.youtube.com/embed/{{($vidio->link_id)}}">
+							</iframe>
+						</div>
+		
+		@endif
 							<p>{!!$model->deskripsi!!}</p>
 							<blockquote class="blockquote">
 								<p>“{{$model->spoiler}}”</p>

@@ -24,6 +24,7 @@ class CreateBeritasTable extends Migration
             $table->string('cover')->nullable();
             $table->integer('views')->default(0);
             $table->string('authors');
+            $table->string('authors_id');
             $table->integer('status')->default(0);
             $table->timestamps();
 

@@ -46,7 +46,7 @@
                     <ul>
                       @if(isset($categori))
                       @foreach($categori as $data)       
-                      <li><a href="{{route('showperkategori', $data->id)}}">{!! $data->categori !!}</a></li>
+                      <li><a href="{{route('showperkategori', $data->categori)}}">{!! $data->categori !!}</a></li>
                       @endforeach
                       @endif
                     </ul>

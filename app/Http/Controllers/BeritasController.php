@@ -26,7 +26,7 @@ class BeritasController extends Controller
             return Datatables::of($beritas)
             ->addColumn('cover', function($beritas){
                 if(isset($beritas->cover)){
-                    return '<img src="../../public/img/'.$beritas->cover. '" height="100px" width="200px">';
+                    return '<img src="../img/'.$beritas->cover. '" height="100px" width="200px">';
                 }else{
                     return "Tidak Ada Gambar";
                 }
@@ -98,7 +98,7 @@ class BeritasController extends Controller
             'categori_id' =>'required',
             'deskripsi'   =>'required',
             'deskripsi2'  =>'',
-            'cover'       =>'required|image|max:2048',
+            'cover'       =>'required|image|max:5048',
             'tags'        => 'required',
  ]);        
 
@@ -111,6 +111,7 @@ class BeritasController extends Controller
         $tambah->deskripsi = $request->get('deskripsi');
         $tambah->deskripsi2 = $request->get('deskripsi2');
         $tambah->authors = $request->get('authors');
+        $tambah->authors_id = $request->get('authors_id');
         // Disini proses mendapatkan judul dan memindahkan letak gambar ke folder image
         $file       = $request->file('cover');
         $fileName   = $file->getClientOriginalName('');

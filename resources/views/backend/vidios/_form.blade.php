@@ -1,3 +1,24 @@
+@php
+$user =Auth::user()->name;
+$user2 =Auth::user()->id;   
+@endphp
+<b>Diupload Oleh </b> <i>{{($user)}}</i>
+<p></p>
+<div class="form-group{{ $errors->has('authors') ? ' has-error' : '' }}" hidden="true">
+	{!! Form::label('authors', 'Authors', ['class'=>'col-md-2 control-label']) !!}
+	<div class="col-md-4">
+		{!! Form::text('authors', $user, ['class'=>'form-control']) !!}
+		{!! $errors->first('authors', '<p class="help-block">:message</p>') !!}
+	</div>
+</div>
+<div class="form-group{{ $errors->has('authors_id') ? ' has-error' : '' }}" hidden="true">
+	{!! Form::label('authors_id', 'Authors id', ['class'=>'col-md-2 control-label']) !!}
+	<div class="col-md-4">
+		{!! Form::text('authors_id', $user2, ['class'=>'form-control']) !!}
+		{!! $errors->first('authors_id', '<p class="help-block">:message</p>') !!}
+	</div>
+</div>
+
 <div class="form-group{{ $errors->has('judul') ? ' has-error' : '' }}">
 	{!! Form::label('judul', 'Judul', ['class'=>'col-md-2 control-label']) !!}
 	<div class="col-md-4">
@@ -36,9 +57,9 @@
 	<div class="col-md-4">
 		{!! Form::file('cover',['class'=>'btn btn-default']) !!}
 
-		@if(isset($berita) && $berita->cover)
+		@if(isset($vidios) && $vidios->cover)
 		<p>
-        {!! Html::image(asset('/img/youtube/'.$berita->cover.''),null,['class'=>'img-rounded img-responsive'])!!}
+        {!! Html::image(asset('/img/youtube/'.$vidios->cover.''),null,['class'=>'img-rounded img-responsive'])!!}
 		</p>
 		@endif
 		{!! $errors->first('cover', '<p class="help-block">:message</p>') !!}

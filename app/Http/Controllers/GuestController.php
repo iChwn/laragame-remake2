@@ -27,16 +27,19 @@ class GuestController extends Controller
     {   
          $berita0 = Berita::orderBy('created_at','desc')->take(2)->get();
          $berita1 = Berita::orderBy('created_at','desc')->take(3)->get();
+         $berita11 = Berita::orderBy('created_at','asc')->take(3)->get();
          $berita2 = Berita::orderBy('created_at','asc')->take(4)->get();
          $beritas = Berita::orderBy('created_at','desc')->paginate(5);
          $berita3 = Berita::orderBy('created_at','asc')->take(4)->get();
          $populer =  Berita::orderBy('views','desc')->take(5)->get();
          $berita  = Berita::all();
-         $vidios  = Vidios::orderBy('created_at','desc')->take(6)->get();
+         $vidios = DB::table('vidios')->join('beritas','beritas.id','=','vidios.berita_id')->select('vidios.judul','vidios.link','vidios.link_id','vidios.berita_id','vidios.cover','beritas.judul as judulberita','beritas.status')->get();
+         $vidiosa  = Vidios::orderBy('created_at','desc')->take(6)->get();
          $categori= Categori::all();
  
-         
-         return view('frontend.index')->with(compact('beritas','categori','berita1','berita2','berita','vidios','berita0','populer','berita3','img'));
+       // $data = DB::table('categoris')->join('beritas','categoris.id','=','beritas.categori_id')->select('beritas.judul','categoris.categori')->where('categoris.categori','=','rpg')->get();
+       //  return $data;
+         return view('frontend.index')->with(compact('beritas','categori','berita1','berita2','berita','vidios','berita0','populer','berita3','img','berita11'));
     }
 
     /**
@@ -71,13 +74,15 @@ class GuestController extends Controller
         $berita2 = Berita::orderBy('created_at','asc')->take(4)->get();
         $berita = Berita::where('judul_slug', $slug)->first();
         $id=$berita->id;
+        $vidio = Vidios::where('berita_id',$id)->first();
         $views = $berita->views + 1;
         $berita->views = $views;
         $berita->save();
         $realeted = Berita::orderBy('created_at','asc')->paginate(4);
         $berita1 = Berita::where('id', $id)->first();
         $categori = Categori::all();
-        return view('frontend.show')->with(compact('berita','categori','berita1','realeted','berita2'));
+         //return $video;
+        return view('frontend.show')->with(compact('berita','categori','berita1','realeted','berita2','vidio'));
     }
 
     /**
@@ -159,9 +164,11 @@ class GuestController extends Controller
     }
 
 //Show Per Kategori
-    public function showperkategori($id)
+    public function showperkategori($categori)
     {
-        $berita0 = Berita::orderBy('created_at','desc')->take(1)->get();
+         $berita = Categori::where('categori', $categori)->first();
+         $id=$berita->id;
+         $berita0 = Berita::orderBy('created_at','desc')->take(1)->get();
          $berita2 = Berita::orderBy('created_at','asc')->take(4)->get();
          $filtercategori = Berita::where('categori_id','=',$id)->paginate(5);
          $berita = Berita::orderBy('created_at','desc')->take(3)->get();
@@ -183,9 +190,10 @@ class GuestController extends Controller
         
         return view('frontend.showpertag',compact('beritas','categori','berita','filtercategori','berita2','populer','berita0'));
     }
-    public function showpergaleri($id)
-    {
-        $berita0 = Berita::orderBy('created_at','desc')->take(1)->get();
+    public function showpergaleri($categori)
+    {    $tampung = Categori::where('categori', $categori)->first();
+         $id=$tampung->id;
+         $berita0 = Berita::orderBy('created_at','desc')->take(1)->get();
          $berita2 = Berita::orderBy('created_at','asc')->take(4)->get();
          $filtercategori = Berita::where('categori_id','=',$id)->paginate(5);
          $berita = Berita::orderBy('created_at','desc')->take(3)->get();

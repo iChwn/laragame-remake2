@@ -20,7 +20,7 @@
 				<img class="embed-responsive-item" src="../../img.youtube.com/vi/BhTkoDVgF6s/maxresdefault.jpg">
 				<div class="video-caption">
 					{{-- <h5>For Honor: Walkthrough Gameplay Warlords</h5> --}}
-					<span class="length">5:32</span>
+					<span class="length"></span>
 				</div>
 				<iframe width="420" height="315"
 				src="https://www.youtube.com/embed/{{($vidio->link_id)}}">
@@ -55,7 +55,7 @@
 					Tag : <br>
 					<div class="post-tags">
 						@foreach($vidio->berita->tags as $tag)
-						<a href="{{route('showpertag', $tag->name)}}"><span id=""></span>#{{ $tag->name }}</a>
+						<span id=""></span>#{{ $tag->name }}
 						@endforeach
 					</div>
 					<div class="social-share">

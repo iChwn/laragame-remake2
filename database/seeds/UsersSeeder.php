@@ -44,6 +44,14 @@ class UsersSeeder extends Seeder
         $admin->is_verified = 1;
         $admin->save();
         $admin->attachRole($adminRole);
+
+        $ichwan = new User();
+        $ichwan->name = 'iChwan';
+        $ichwan->email = 'ichwanarif@gmail.com';
+        $ichwan->password = bcrypt('rahasia');
+        $ichwan->is_verified = 1;
+        $ichwan->save();
+        $ichwan->attachRole($adminRole);
 // Membuat sample member
         $member = new User();
         $member->name = "Sample Member";

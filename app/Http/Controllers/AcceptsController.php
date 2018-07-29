@@ -29,7 +29,7 @@ class AcceptsController extends Controller
         return Datatables::of($beritas)
         ->addColumn('cover', function($beritas){
             if(isset($beritas->cover)){
-                return '<img src="../../public/img/'.$beritas->cover. '" height="100px" width="200px">';
+                return '<img src="../img/'.$beritas->cover. '" height="100px" width="200px">';
             }else{
                 return "Tidak Ada Gambar";
             }

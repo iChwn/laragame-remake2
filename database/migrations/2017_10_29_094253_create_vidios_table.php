@@ -18,6 +18,8 @@ class CreateVidiosTable extends Migration
             $table->string('judul');
             $table->string('link');
             $table->string('link_id');
+            $table->string('authors');
+            $table->string('authors_id');
             // $table->integer('categori_id')->unsigned();
             $table->integer('berita_id')->unsigned();
             $table->string('cover')->nullable();

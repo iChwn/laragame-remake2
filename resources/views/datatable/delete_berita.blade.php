@@ -1,8 +1,8 @@
 @php
-$user =Auth::user()->name;  
+$user =Auth::user()->id;  
 @endphp
 
-@if($model->authors == $user)
+@if($model->authors_id == $user)
 <button class="btn btn-outline-danger" data-toggle="modal" data-target="#warningModalAlertColored{{$model->id}}" type="button"> <i class="icon icon-trash-o"></i> Hapus</button>
 {!! Form::model($model, ['url' => $form_url, 'method' => 'delete',] ) !!}
 <div id="warningModalAlertColored{{$model->id}}" tabindex="-1" role="dialog" class="modal fade" >

@@ -2,7 +2,8 @@
 	.hidden{display:none;}
 </style>
 @php
-$user =Auth::user()->name;  
+$user =Auth::user()->name;
+$user2 =Auth::user()->id;   
 @endphp
 <b>Diupload Oleh </b> <i>{{($user)}}</i>
 <p></p>
@@ -11,6 +12,13 @@ $user =Auth::user()->name;
 	<div class="col-md-4">
 		{!! Form::text('authors', $user, ['class'=>'form-control']) !!}
 		{!! $errors->first('authors', '<p class="help-block">:message</p>') !!}
+	</div>
+</div>
+<div class="form-group{{ $errors->has('authors_id') ? ' has-error' : '' }}" hidden="true">
+	{!! Form::label('authors_id', 'Authors id', ['class'=>'col-md-2 control-label']) !!}
+	<div class="col-md-4">
+		{!! Form::text('authors_id', $user2, ['class'=>'form-control']) !!}
+		{!! $errors->first('authors_id', '<p class="help-block">:message</p>') !!}
 	</div>
 </div>
 
@@ -41,7 +49,7 @@ $user =Auth::user()->name;
 <div class="form-group{{ $errors->has('deskripsi') ? ' has-error' : '' }}">
 	{!! Form::label('deskripsi', 'Deskripsi', ['class'=>'col-md-2 control-label']) !!}
 	<div class="col-md-8">
-		{!! Form::textarea('deskripsi', null, ['class'=>'form-control']) !!}
+		{!! Form::textarea('deskripsi', null, ['class'=>'form-control','id'=>'summary-ckeditor']) !!}
 		{!! $errors->first('deskripsi', '<p class="help-block">:message</p>') !!}
 	</div>
 </div>
@@ -49,7 +57,7 @@ $user =Auth::user()->name;
 <div class="form-group{{ $errors->has('deskripsi2') ? ' has-error' : '' }}">
 	{!! Form::label('deskripsi2', 'Deskripsi 2', ['class'=>'col-md-2 control-label']) !!}
 	<div class="col-md-8">
-		{!! Form::textarea('deskripsi2', null, ['class'=>'form-control']) !!}
+		{!! Form::textarea('deskripsi2', null, ['class'=>'form-control','id'=>'textarea']) !!}
 		{!! $errors->first('deskripsi2', '<p class="help-block">:message</p>') !!}
 	</div>
 </div>
@@ -76,13 +84,10 @@ $user =Auth::user()->name;
 	</div>
 </div>
 
-<div class="form-group{{ $errors->has('tags') ? ' has-error' : '' }}">
+<div class="form-group {{ $errors->has('tags') ? ' has-error' : '' }}">
 	{!! Form::label('tags', 'tags', ['class'=>'col-md-2 control-label']) !!}
 	<div class="col-md-4">
-		<input data-role="tagsinput" type="text" name="tags" >
-			@if ($errors->has('tags'))
-                <span class="text-danger">{{ $errors->first('tags') }}</span>
-            @endif
+		{!! Form::text('tags', null, ['class'=>'form-control','data-role'=>'tagsinput']) !!}
 		{!! $errors->first('tags', '<p class="help-block">:message</p>') !!}
 	</div>
 </div>

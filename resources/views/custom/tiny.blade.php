@@ -1,7 +1,7 @@
 <script type="text/javascript">
   $(document).ready(function() {
   tinymce.init({
-    selector: "textarea",
+    selector: "",
     theme: "modern",
     paste_data_images: true,
     plugins: [

@@ -35,7 +35,7 @@
 					<h2 class="post-title">{{$berita->judul}}</h2>
 					<div class="post-meta">
 						<span><i class="fa fa-clock-o"></i> {{ date('d F, Y', strtotime($berita->created_at)) }} by <a href="profile.html">{{$berita->authors}}</a></span>
-						<span><a href="#comments"><i class="fa fa-comment-o"></i> {{($berita->views)}} Views</a></span>
+						<span><a href="#comments"><i class="fa fa-eye"></i> {{($berita->views)}} Views</a></span>
 					</div>
 					<div class="post-thumbnail">
 						<img src="{{asset('/img/'.$berita->cover)}}" alt="Uncharted The Lost Legacy First Gameplay Details Revealed">
@@ -52,38 +52,61 @@
 					@endif
 					<strong>Tag:</strong>
 					<div class="post-tags">
-					@foreach($berita->tags as $tag)
-					<a href="{{route('showpertag', $tag->name)}}"><span id=""></span>#{{ $tag->name }}</a>
-					@endforeach
+						@foreach($berita->tags as $tag)
+						<a href="{{route('showpertag', $tag->name)}}"><span id=""></span>#{{ $tag->name }}</a>
+						@endforeach
+						<p></p>
 					</div>
 				</div>
 			</div>
-			{{-- Realeted Post --}}
-			<div class="post-related">
-				<h6 class="subtitle">Related Posts</h6>
-				<div class="row">
-					@foreach($realeted as $data)
-					<div class="col-12 col-sm-6 col-md-3">
-						<div class="card card-widget">
-							<div class="card-img">
-								<a href="{{route('show.show',$data->judul_slug)}}"><img src="{{asset('/img/'.$data->cover)}}" alt="{{$data->spoiler}}" style="width: 400px; height: 150px;"></a>
-							</div>
-							<div class="card-block">
-								<h4 class="card-title"><a href="{{route('show.show',$data->judul_slug)}}">{{$data->judul}}</a></h4>
-								<div class="card-meta"><span><i class="fa fa-clock-o"></i> {{ date('d F, Y', strtotime($berita->created_at)) }}</span></div>
-								<p>{!! substr($data->deskripsi,0,200)."..." !!}</p>
-							</div>
+			@if(isset($vidio))
+			<div class="col-lg-12">
+				<section class="bg-image" style="background-image: url('{{asset('/img/youtube/'.$vidio->cover)}}');">
+					<div class="overlay"></div>
+					<div class="container">
+						<div class="video-play" data-src="https://www.youtube.com/embed/zFUymXnQ5z8?rel=0&amp;amp;autoplay=1&amp;amp;showinfo=0">
+							<div class="embed-responsive embed-responsive-16by9">
+								<img class="embed-responsive-item" src="../../img.youtube.com/vi/BhTkoDVgF6s/maxresdefault.jpg">
+								<div class="video-caption">
+									{{-- <h5>For Honor: Walkthrough Gameplay Warlords</h5> --}}
+									<span class="length"></span>
+								</div>
+								<iframe width="420" height="315"
+								src="https://www.youtube.com/embed/{{($vidio->link_id)}}">
+							</iframe>
 						</div>
 					</div>
-					@endforeach
 				</div>
+			</section>
+		</div>
+		@endif
+		{{-- Realeted Post --}}
+		<div class="post-related">
+			<p></p>
+			<h6 class="subtitle">Related Posts</h6>
+			<div class="row">
+				@foreach($realeted as $data)
+				<div class="col-12 col-sm-6 col-md-3">
+					<div class="card card-widget">
+						<div class="card-img">
+							<a href="{{route('show.show',$data->judul_slug)}}"><img src="{{asset('/img/'.$data->cover)}}" alt="{{$data->spoiler}}" style="width: 400px; height: 150px;"></a>
+						</div>
+						<div class="card-block">
+							<h4 class="card-title"><a href="{{route('show.show',$data->judul_slug)}}">{{$data->judul}}</a></h4>
+							<div class="card-meta"><span><i class="fa fa-clock-o"></i> {{ date('d F, Y', strtotime($berita->created_at)) }}</span></div>
+							<p>{!! substr($data->deskripsi,0,200)."..." !!}</p>
+						</div>
+					</div>
+				</div>
+				@endforeach
 			</div>
-		</section>
-		<section class="breadcrumb">
-			<div class="container">
-				<div class="col-sm-12">
-					<div id="disqus_thread"></div>
-					<script>
+		</div>
+	</section>
+	<section class="breadcrumb">
+		<div class="container">
+			<div class="col-sm-12">
+				<div id="disqus_thread"></div>
+				<script>
 
 /**
 *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.

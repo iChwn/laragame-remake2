@@ -13,4 +13,9 @@ class Berita extends Model
     {
     	return $this->belongsTo('App\Categori');
     }
+
+    public function vidios()
+    {
+    	return $this->belongsTo('App\Vidios');
+    }
 }

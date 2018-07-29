@@ -178,7 +178,7 @@
 								@role('admin')
 								<li><a href="{{ route('categoris.index') }}">Categori</a></li>
 								<li><a href="{{ route('beritas.index') }}">Berita</a></li>
-								<li><a href="{{ url('/settings/profile') }}">Profil</a></li>
+								{{-- <li><a href="{{ url('/settings/profile') }}">Profil</a></li> --}}
 								<li><a href="{{ route('vidios.index') }}">Video</a></li>
 								@endrole
 								@role('super')
@@ -187,9 +187,6 @@
 								@endrole
 							</ul>
 						</li>
-
-						<li class="sidenav-heading text-center">~Pages~</li>
-						<li><a href="{{ route('blogs.index')}}">Blog</a></li>
 					</li>
 				</ul>
 			</nav>
@@ -354,6 +351,19 @@
 		<script src="{{asset('/admin/js/elephant.min.js')}}"></script>
 		<script src="{{asset('/admin/js/application.min.js')}}"></script>
 		<script src="{{asset('/admin/js/demo.min.js')}}"></script>
+		<script src="{{ asset('vendor/unisharp/laravel-ckeditor/ckeditor.js') }}"></script>
+		<script>
+			CKEDITOR.replace( 'summary-ckeditor', {
+				filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
+				filebrowserBrowseUrl: '/laravel-filemanager?type=Files'
+			});
+		</script>
+		<script>
+			CKEDITOR.replace( 'textarea', {
+				filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
+				filebrowserBrowseUrl: '/laravel-filemanager?type=Files'
+			});
+		</script>
 		{{-- SweetyAlert --}}
 		<script src="{{asset('/dist/sweetalert.min.js')}}"></script>
 		@include('sweet::alert')

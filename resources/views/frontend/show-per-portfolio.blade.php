@@ -9,7 +9,7 @@
             <button class="btn btn-default" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Semua Categori <i class="fa fa-caret-down"></i></button>
             <div class="dropdown-menu">
               @foreach($categori as $data)       
-              <a class="dropdown-item" href="{{route('showpergaleri', $data->id)}}">{!! $data->categori !!}
+              <a class="dropdown-item" href="{{route('showpergaleri', $data->categori)}}">{!! $data->categori !!}
               </a>
               @endforeach
             </div>

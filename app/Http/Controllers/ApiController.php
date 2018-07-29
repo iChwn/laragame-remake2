@@ -20,47 +20,86 @@ class ApiController extends Controller
         $beritas = Berita::find($id);
         if(is_null($beritas))
         {
-           return response()->json("not found",404);
-        }
+         return response()->json("not found",404);
+     }
 
-       return response()->json($beritas,200);
-    }
+     return response()->json($beritas,200);
+ }
 
 
-    public function categoris (Categori $categori)
+ public function categoris (Categori $categori)
+ {
+   $categori 	= $categori->all();
+   return response()->json($categori);
+}
+public function showcategoris($id)
+{
+    $categoris = Categori::find($id);
+    if(is_null($categoris))
     {
-    	$categori 	= $categori->all();
-    	return response()->json($categori);
-    }
-    public function showcategoris($id)
-    {
-        $categoris = Categori::find($id);
-        if(is_null($categoris))
-        {
-           return response()->json("not found",404);
-        }
+     return response()->json("not found",404);
+ }
 
-       return response()->json($categoris,200);
-    }
-    
-    public function videos(Vidios $video)
-    {
-    	$video 		= $video->all();
-    	return response()->json($video);
-    }
-    public function showvideoss($id)
-    {
-        $videos = Vidios::find($id);
-        if(is_null($videos))
-        {
-           return response()->json("not found",404);
-        }
+ return response()->json($categoris,200);
+}
 
-       return response()->json($videos,200);
+public function videos(Vidios $video)
+{
+   $video 		= $video->all();
+   return response()->json($video);
+}
+public function showvideoss($id)
+{
+    $videos = Vidios::find($id);
+    if(is_null($videos))
+    {
+     return response()->json("not found",404);
+ }
+
+ return response()->json($videos,200);
+}
+
+public function listdata()
+{
+    $tampung= Berita::with('categori')->get();
+    $categori = Categori::all();
+    $populer =  Berita::with('categori')->orderBy('views','desc')->take(3)->get();
+    foreach ($tampung as $key => $value) {
+        $data[$key] =[
+        'ganteng' =>substr($value->deskripsi,0,300)."..."
+        ];
     }
 
-    public function listdata()
-    {
-        return Berita::with('categori')->get();
+
+    $semua = [
+    'ya' => $data,
+    'semua' => $tampung,
+    'cat' => $categori,
+    'popular' => $populer
+    ];
+    return $semua;
+
+}
+public function detail($judul_slug)
+{   
+    return Berita::with('categori')->where('judul_slug',$judul_slug)->get();
+}
+public function showcategori($id)
+{   
+    $categoriall = Categori::all();
+    $categori = Categori::with('berita')->where('id',$id)->get();
+    $berita = Berita::with('categori')->where('categori_id',$id)->get();
+    foreach ($berita as $key => $value) {
+        $data[$key] =[
+        'ganteng' =>substr($value->deskripsi,0,300)."..."
+        ];
     }
+    $semua = [
+    'cat' => $categoriall,
+    'categori' => $categori,
+    'berita' => $berita,
+    'ya'       => $data
+    ];
+    return $semua;
+}
 }

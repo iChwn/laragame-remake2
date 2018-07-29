@@ -25,27 +25,26 @@ class VidiosController extends Controller
             $vidios = Vidios::with('berita');
             return Datatables::of($vidios)
             ->addColumn('cover', function($vidios){
-                return '<img src="/linux/latihanfix/public/img/youtube/'.$vidios->cover. '" height="100px" width="200px">';
+                return '<img src="../img/youtube/'.$vidios->cover. '" height="100px" width="200px">';
             })
             ->addColumn('spoiler', function($vidios){
               return '<a href="'.route('vidios.show',$vidios->id).'">'.$vidios->judul.'</a>';
             })
             ->addColumn('hapus',function($vidios){
-                return view('datatable.delete_berita',[
+                return view('datatable.delete_video',[
                     'model' =>$vidios,
                     'form_url'=>route('vidios.destroy',$vidios->id), 
                     'confirm_message' => 'Yakin mau menghapus ' . $vidios->judul . '?'
                     ]);
             })
-            ->addColumn('action', function($vidios){
-            return view('datatable._action',[
-                'model'     => $vidios,
-                'form_url'  => route('vidios.destroy', $vidios->id),
-                'edit_url' => route('vidios.edit', $vidios->id),
-                'confirm_message'=>'Yakin mau menghapus : '.$vidios->judul.' ?'
-            
-            ]);
-        })->make(true);
+             ->addColumn('hapus2', function($vidios){
+                return view('datatable.edit_video',[
+                    'model'     => $vidios,
+                    'form_url'  => route('vidios.destroy', $vidios->id),
+                    'edit_url'  => route('vidios.edit', $vidios->id),
+                    'confirm_message'=>'Yakin mau menghapus : '.$vidios->judul.' ?'       
+                    ]);
+            })->make(true);
     }
     $html = $htmlBuilder
             ->addColumn(['data'=>'cover','name'=>'cover','title'=>'Cover'])
@@ -55,9 +54,9 @@ class VidiosController extends Controller
            // ->addColumn(['data'=>'deskripsi','name'=>'deskripsi','title'=>'Deskripsi'])
             // ->addColumn(['data'=>'categori.categori','name'=>'categori.categori','title'=>'Categori'])
             ->addColumn(['data'=>'berita.judul','name'=>'berita.judul','title'=>'Berita'])
-            ->addColumn(['data'=>'action', 'name'=>'action', 'title'=>'', 'orderable'=>false,
-                'searchable'=>false])
             ->addColumn(['data'=>'hapus', 'name'=>'hapus', 'title'=>'', 'orderable'=>false,
+            'searchable'=>false])
+            ->addColumn(['data'=>'hapus2', 'name'=>'hapus2', 'title'=>'', 'orderable'=>false,
             'searchable'=>false]);
         return view('backend/vidios.index')->with(compact('html','kategori'));
     }
@@ -81,7 +80,8 @@ class VidiosController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'cover'       =>'image|max:2048',
+            'cover'       =>'image|max:5048',
+            'judul'       =>'required|unique:vidios',
  ]);        
         $tambah = new Vidios();
         $tambah->judul = $request->get('judul');
@@ -90,6 +90,8 @@ class VidiosController extends Controller
        
         $tambah->link = $request->get('link');
         $tambah->link_id = $request->get('link_id');
+        $tambah->authors = $request->get('authors');
+        $tambah->authors_id = $request->get('authors_id');
         // Disini proses mendapatkan judul dan memindahkan letak gambar ke folder image
         $file       = $request->file('cover');
         $fileName   = $file->getClientOriginalName('');
